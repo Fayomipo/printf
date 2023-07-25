@@ -9,10 +9,12 @@ int _putchar(int c)
 
 int _puts(const char *s)
 {
+    int n_chars;
     const char *t = s;
 
     while (*t) {
-        write(STDOUT_FILENO, t++, 1);
+        if ((n_chars = write(STDOUT_FILENO, t++, 1)) < 0)
+            return n_chars;
     }
 
     return (t - s);
@@ -21,37 +23,44 @@ int _puts(const char *s)
 int _printf(const char *format, ...)
 {
     char c;
-    size_t n_chars = 0;
+    int n_chars = 0;
+    int total_n_chars = 0;
     va_list args;
 
     if (!*format) return 0;
 
     va_start(args, format);
 
-    while ((c = *format++)) {
+    while (n_chars >= 0 && (c = *format++)) {
         if (c != '%') {
-            _putchar(c);
-            n_chars++;
+            if ((n_chars = _putchar(c)) < 0)
+                break;
+            total_n_chars += n_chars;
             continue;
         }
+
         switch (c = *format++) {
             case 'c':
-                _putchar((unsigned char)va_arg(args, int));
-                n_chars++;
+                if ((n_chars = _putchar((unsigned char)va_arg(args, int))) < 0)
+                    break;
                 break;
             case 's':
-                n_chars += _puts(va_arg(args, char *));
+                if ((n_chars = _puts(va_arg(args, char *))) < 0)
+                    break;
                 break;
             case '%':
-                _putchar('%');
+                if ((n_chars = _putchar('%')) < 0)
+                    break;
                 break;
             default:
-                _putchar(c);
+                if ((n_chars = _putchar(c)) < 0)
+                    break;
                 break;
         }
+        total_n_chars += n_chars;
     }
 
     va_end(args);
 
-    return n_chars;
+    return ((n_chars > 0) ? total_n_chars : n_chars);
 }
