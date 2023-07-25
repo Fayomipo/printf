@@ -45,6 +45,9 @@ int _printf(const char *format, ...)
             case '%':
                 _putchar('%');
                 break;
+            default:
+                _putchar(c);
+                break;
         }
     }
 
