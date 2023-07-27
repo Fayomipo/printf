@@ -69,6 +69,10 @@ int _printf(const char *format, ...)
 			case 'b':
 				n_chars = conv_b(va_arg(args, unsigned int));
 				break;
+			case 'x':
+			case 'X':
+				n_chars = conv_x(va_arg(args, unsigned int), c == 'x');
+				break;
 			case '%':
 				n_chars = _putchar('%');
 				break;

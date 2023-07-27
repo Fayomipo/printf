@@ -9,3 +9,5 @@ int conv_u(unsigned int u);
 int conv_o(unsigned int u);
 
 int conv_b(unsigned int u);
+
+int conv_x(unsigned int u, unsigned char lower_case);
