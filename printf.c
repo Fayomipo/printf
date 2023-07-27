@@ -60,6 +60,15 @@ int _printf(const char *format, ...)
 			case 'i':
 				n_chars = conv_i(va_arg(args, int));
 				break;
+			case 'u':
+				n_chars = conv_u(va_arg(args, unsigned int));
+				break;
+			case 'o':
+				n_chars = conv_o(va_arg(args, unsigned int));
+				break;
+			case 'b':
+				n_chars = conv_b(va_arg(args, unsigned int));
+				break;
 			case '%':
 				n_chars = _putchar('%');
 				break;

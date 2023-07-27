@@ -1,29 +1,12 @@
 #include "main.h"
 
-int conv_i(int i)
+int conv_o(unsigned int u)
 {
 	int total_n_chars = 0, n_chars;
-	unsigned int u;
 
-	if (i < 0)
+	if (u >= 8)
 	{
-		n_chars = _putchar ('-');
-		if (n_chars < 0)
-		{
-			return (n_chars);
-		}
-		total_n_chars += n_chars;
-		
-		u = (unsigned int)-i;
-	}
-	else 
-	{
-		u = (unsigned int)i;
-	}
-
-	if (u >= 10)
-	{
-		n_chars = conv_i(u / 10);
+		n_chars = conv_o(u / 8);
 		if (n_chars < 0)
 		{
 			return (n_chars);
@@ -31,7 +14,7 @@ int conv_i(int i)
 		total_n_chars += n_chars;
 	}
 
-	n_chars = _putchar('0' + u % 10);
+	n_chars = _putchar('0' + u % 8);
 	if (n_chars < 0)
 	{
 		return (n_chars);
@@ -40,14 +23,13 @@ int conv_i(int i)
 	return (total_n_chars + n_chars);
 }
 
-
-int conv_u(unsigned int u)
+int conv_b(unsigned int u)
 {
 	int total_n_chars = 0, n_chars;
 
-	if (u >= 10)
+	if (u >= 2)
 	{
-		n_chars = conv_u(u / 10);
+		n_chars = conv_b(u / 2);
 		if (n_chars < 0)
 		{
 			return (n_chars);
@@ -55,7 +37,7 @@ int conv_u(unsigned int u)
 		total_n_chars += n_chars;
 	}
 
-	n_chars = _putchar('0' + u % 10);
+	n_chars = _putchar('0' + u % 2);
 	if (n_chars < 0)
 	{
 		return (n_chars);
