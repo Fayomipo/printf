@@ -55,7 +55,7 @@ int _printf(const char *format, ...)
 					break;
 				break;
 			case 's':
-				n_chars = _puts(va_arg(args, char *))
+				n_chars = _puts(va_arg(args, char *));
 				if (n_chars  < 0)
 					break;
 				break;
