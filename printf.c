@@ -1,6 +1,7 @@
 #include <stdarg.h>
 #include <unistd.h>
 #include "main.h"
+#include "conv.h"
 
 int _putchar(int c)
 {
@@ -50,26 +51,20 @@ int _printf(const char *format, ...)
 		switch (c = *format++)
 		{
 			case 'c':
-				n_chars = _putchar((unsigned char)va_arg(args, int));
-				if (n_chars < 0)
-					break;
+				n_chars = conv_c((unsigned char)va_arg(args, int));
 				break;
 			case 's':
-				n_chars = _puts(va_arg(args, char *));
-				if (n_chars  < 0)
-					break;
+				n_chars = conv_s(va_arg(args, char *));
 				break;
 			case '%':
 				n_chars = _putchar('%');
-				if (n_chars < 0)
-					break;
 				break;
 			default:
 				n_chars = _putchar(c);
-				if (n_chars < 0)
-					break;
 				break;
 		}
+		if (n_chars < 0)
+			break;
 		total_n_chars += n_chars;
 	}
 
